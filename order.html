@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation - BigTech Electronics</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #0078ff;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #0078ff;
+      border-bottom: 2px solid #0078ff;
+      padding-bottom: 8px;
+    }
+
+    .order-info {
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 0;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .status {
+      background: #28a745;
+      color: white;
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #0078ff;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #005dc0;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>✅ Order Confirmation - BigTech Electronics</header>
+
+  <div class="container" id="orderContainer">
+    <!-- Order details will load here -->
+  </div>
+
+  <script>
+    function loadOrder() {
+      const orderContainer = document.getElementById('orderContainer');
+      const order = JSON.parse(localStorage.getItem('order'));
+
+      if (!order) {
+        orderContainer.innerHTML = `<p class="empty">No recent orders found 😢</p>
+                                    <div class="btn-group"><a href="index1.html" class="btn">🛍️ Back to Shopping</a></div>`;
+        return;
+      }
+
+      let total = 0;
+      let productListHTML = '';
+
+      order.cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        productListHTML += `
+          <div class="order-item">
+            <span>${item.name} (x${item.quantity})</span>
+            <span>₹${itemTotal}</span>
+          </div>
+        `;
+      });
+
+      orderContainer.innerHTML = `
+        <h2>🎉 Thank You, ${order.name}!</h2>
+        <div class="order-info">
+          <p><strong>Order ID:</strong> ${order.id}</p>
+          <p><strong>Date:</strong> ${order.date}</p>
+          <p><strong>Email:</strong> ${order.email}</p>
+          <p><strong>Address:</strong> ${order.address}</p>
+          <p><strong>Payment:</strong> ${order.payment}</p>
+          <span class="status">Status: Order Placed ✅</span>
+        </div>
+
+        <h2>🧾 Ordered Products</h2>
+        ${productListHTML}
+        <div class="total">Total Amount: ₹${total}</div>
+
+        <div class="btn-group">
+          <a href="index1.html" class="btn">🏠 Back to Home</a>
+          <a href="cart.html" class="btn">🛒 Shop Again</a>
+        </div>
+      `
+    }
+
+    window.onload = loadOrder;
+  </script>
+
+</body>
+</html>

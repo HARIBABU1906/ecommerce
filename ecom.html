@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hari'shoptify Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#f8f9fb;color:#222;overflow-x:hidden;}
+
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#09abb9,#002c73,#7a0072,#008793);
+  color:#fff;display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 2rem;position:sticky;top:0;z-index:1000;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
+.logo{font-size:1.6rem;font-weight:600;}
+.logo span{color:#f5b301;}
+nav{display:flex;align-items:center;}
+nav a{color:#fff;margin-left:1.5rem;text-decoration:none;font-weight:500;transition:color .3s;}
+nav a:hover{color:#f5b301;}
+#cartCount{
+  background:#f5b301;color:#002c73;font-weight:700;border-radius:50%;
+  width:22px;height:22px;display:inline-flex;justify-content:center;align-items:center;
+  font-size:.8rem;margin-left:4px;
+}
+
+/* HERO */
+.hero{
+  background:url('images/vk2.jpg') center/cover no-repeat;color:#fff;text-align:center;
+  padding:8rem 1rem;position:relative;
+}
+.hero::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.45);}
+.hero-content{position:relative;z-index:1;max-width:700px;margin:auto;animation:fadeInUp 1.2s ease;}
+.hero h1{font-size:3rem;margin-bottom:1rem;}
+.hero p{font-size:1.1rem;margin-bottom:2rem;}
+.hero button{
+  background:#f5b301;color:#002c73;border:none;padding:.9rem 2rem;font-weight:700;
+  border-radius:8px;cursor:pointer;transition:all .3s;box-shadow:0 4px 8px rgba(0,0,0,.2);
+}
+.hero button:hover{transform:scale(1.05);background:#fff;}
+
+/* SEARCH + FILTER BAR */
+.filter-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;padding:1.5rem 1rem;
+}
+#searchBar,#categorySelect{
+  padding:.8rem 1rem;border-radius:8px;border:1px solid #ccc;
+  font-size:.95rem;transition:.3s;
+}
+#searchBar:focus,#categorySelect:focus{
+  border-color:#004d7a;outline:none;box-shadow:0 0 8px rgba(0,77,122,0.3);
+}
+
+/* PRODUCTS */
+section.products{padding:3rem 2rem;text-align:center;}
+section.products h2{color:#002c73;margin-bottom:2rem;font-size:2rem;}
+.product-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.8rem;
+}
+.product-card{
+  background:#fff;border-radius:12px;padding:1rem;box-shadow:0 4px 10px rgba(0,0,0,.1);
+  text-align:center;transition:transform .3s,box-shadow .3s;
+}
+.product-card:hover{transform:translateY(-8px);box-shadow:0 6px 14px rgba(0,0,0,.15);}
+.product-card img{
+  width:100%;height:190px;object-fit:cover;border-radius:10px;margin-bottom:.8rem;
+}
+.product-card h3{font-size:1.1rem;margin:.5rem 0;}
+.product-card p{color:#f5b301;font-weight:600;margin-bottom:.7rem;}
+.product-card button{
+  background:#004d7a;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:5px;
+  cursor:pointer;font-weight:500;transition:.3s;
+}
+.product-card button:hover{background:#f5b301;color:#002c73;}
+
+/* CART MODAL */
+#cartModal{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:2000;
+}
+.cart-box{
+  background:#fff;border-radius:10px;max-width:400px;width:90%;padding:1.5rem;
+  box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+.cart-box h3{text-align:center;margin-bottom:1rem;color:#002c73;}
+.cart-items{max-height:250px;overflow-y:auto;margin-bottom:1rem;}
+.cart-items div{display:flex;justify-content:space-between;margin:.5rem 0;}
+.cart-total{text-align:center;font-weight:600;margin:1rem 0;}
+.cart-btns{text-align:center;}
+.cart-btns button{
+  margin:0 .5rem;padding:.6rem 1.2rem;border:none;border-radius:5px;cursor:pointer;font-weight:600;
+}
+.close-btn{background:#ccc;}
+.checkout-btn{background:#f5b301;color:#002c73;}
+.checkout-btn:hover{background:#004d7a;color:#fff;}
+
+/* FOOTER */
+footer{background:#002c73;color:#fff;text-align:center;padding:1.5rem;margin-top:2rem;}
+footer p{font-size:.95rem;}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.hero h1{font-size:2.2rem;}}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🛒 Hari'<span>Shoptify</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="cart.html" >Cart </a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Welcome to Hari'shoptify</h1>
+    <p>Shop modern gadgets, furniture & lifestyle accessories at unbeatable prices.</p>
+    <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <input type="text" id="searchBar" placeholder="🔍 Search products...">
+  <select id="categorySelect">
+    <option value="all">All Categories</option>
+    <option value="electronics">Electronics</option>
+    <option value="home">Home</option>
+    <option value="accessories">Accessories</option>
+  </select>
+</div>
+
+<section class="products" id="products">
+  <h2>✨ Featured Products</h2>
+  <div class="product-grid" id="productList"></div>
+</section>
+
+<footer><p>© 2025 Hari'shoptify | Designed by Hari Babu</p></footer>
+
+
+<div id="cartModal">
+  <div class="cart-box">
+    <h3>Your Cart</h3>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total" id="cartTotal"></div>
+    <div class="cart-btns">
+      <button class="close-btn" onclick="toggleCart(false)">Close</button>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const products=[
+ {id:1,name:"Wireless Headphones",price:2500,cat:"electronics",image:"boat rockerz.jpg"},
+ {id:2,name:"Smart Watch",price:3500,cat:"electronics",image:"noise watch.jpg"},
+ {id:3,name:"Bluetooth Speaker",price:2000,cat:"electronics",image:"JBL Speakers.jpg"},
+ {id:4,name:"Laptop",price:45000,cat:"electronics",image:"HP laptop.jpg"},
+ {id:5,name:"Gaming Mouse",price:999,cat:"electronics",image:"logitech gaming mouse.jpg"},
+ {id:6,name:"Mechanical Keyboard",price:2500,cat:"electronics",image:"mechanical kb.jpg"},
+ {id:7,name:"Luxury Sofa",price:18000,cat:"home",image:"luxurysofa.jpg"},
+ {id:8,name:"Wooden Chair",price:4200,cat:"home",image:"woodenchair.jpeg"},
+ {id:9,name:"Wall Clock",price:1200,cat:"home",image:"clock.jpg"},
+ {id:10,name:"Table Lamp",price:1800,cat:"home",image:"table lamp.webp"},
+ {id:11,name:"Stylish Sunglasses",price:999,cat:"accessories",image:"sunglass.jpg"},
+ {id:12,name:"Leather Wallet",price:799,cat:"accessories",image:"Leather wallet.jpg"}
+];
+const productList=document.getElementById("productList");
+const searchBar=document.getElementById("searchBar");
+const categorySelect=document.getElementById("categorySelect");
+const cartCount=document.getElementById("cartCount");
+const cartModal=document.getElementById("cartModal");
+const cartItems=document.getElementById("cartItems");
+const cartTotal=document.getElementById("cartTotal");
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+function renderProducts(list){
+  productList.innerHTML=list.map(p=>`
+    <div class="product-card">
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>₹${p.price}</p>
+      <button onclick="addToCart(${p.id})">Add to Cart</button>
+    </div>`).join('');
+}
+renderProducts(products);
+
+/* SEARCH + CATEGORY FILTER */
+function applyFilters(){
+  const query=searchBar.value.toLowerCase();
+  const cat=categorySelect.value;
+  const filtered=products.filter(p=>
+    p.name.toLowerCase().includes(query) && (cat==="all"||p.cat===cat)
+  );
+  renderProducts(filtered);
+}
+searchBar.addEventListener("input",applyFilters);
+categorySelect.addEventListener("change",applyFilters);
+
+/* CART FUNCTIONS */
+    const container = document.getElementById("productList");
+    products.forEach(p => {
+      container.innerHTML += `
+        <div class="product-card">
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>₹${p.price}</p>
+          <button onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      `;
+    });
+    
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${product.name} added to cart!`);
+    }
+
+    function viewCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      let msg = "🛒 Your Cart:\n\n";
+      let total = 0;
+      cart.forEach((item, index) => {
+        msg += `${index + 1}. ${item.name} - ₹${item.price}\n`;
+        total += item.price;
+      });
+      msg += `\nTotal: ₹${total}`;
+      alert(msg);
+    }
+</script>
+</body>
+</html>
